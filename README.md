@@ -14,7 +14,7 @@ Sprite ToolBox is a tool for setting the origin, bounding box and animation spee
 ## Controls
 * Cycle through sprite frames: MouseWheel.
 * Zoom in and out: Control+MouseWheel.
-* Pan around: Spacebar+LeftButton+MouseMove. To reset: Spacebar+RightButton
+* Pan around: Spacebar+LeftButton+Drag. To reset: Spacebar+RightButton
 * Set origin: LeftButton at wanted position when origin is shown, or enter numeric values.
-* Set bounding box: RightButton+MouseMove when bounding box is shown, or enter numeric values.
-* Set anchor position for frame: LeftButton at wanted position when anchor is shown, or LeftButton+MouseMove to also set angle and length.
+* Set bounding box: RightButton+Drag when bounding box is shown, or enter numeric values.
+* Set anchor position for frame: LeftButton at wanted position when anchor is shown, or LeftButton+Drag to also set angle and length.
