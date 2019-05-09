@@ -1,0 +1,217 @@
+﻿<Window x:Class="SpriteToolBox.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:SpriteToolBox"
+        mc:Ignorable="d"
+        Title="Sprite ToolBox" Height="680" Width="870" MinHeight="680" MinWidth="870" Closing="Window_Closing" FontSize="12">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="10"/>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="10"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="10"/>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="10"/>
+    </Grid.RowDefinitions>
+    
+    <!-- LOAD/SAVE BUTTONS -->
+    <Grid Grid.Column="1" Grid.Row="1" Margin="0,0,20,0">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+      </Grid.RowDefinitions>
+      <TextBlock Grid.Column="0" Grid.Row="0" Text="Load/Save" FontWeight="bold" Margin="0,0,0,5"/>
+      <Button Grid.Column="0" Grid.Row="1" x:Name="btnLoadSprite" Content="Load Sprite..." Margin="0,0,0,10" Click="BtnLoadSprite_Click" ToolTip="Load a sprite.&#10;If data has been saved for the loaded sprite,&#10;it will be loaded automatically.&#10;You can also drag and drop sprites to the sprite&#10;editor window."/>
+      <Button Grid.Column="0" Grid.Row="2" x:Name="btnSave" Content="Save Sprite Data" Margin="0,0,0,10" Click="BtnSave_Click" ToolTip="Save the sprite data as xml.&#10;You can use import this data into your game.&#10;Data will be named the same as the sprite,&#10;but with the '.xsprite' extension."/>
+      <xctk:ColorPicker Grid.Column="0" Grid.Row="3" SelectedColorChanged="ColorPicker_SelectedColorChanged" SelectedColor="Black" x:Name="colorDialog"/>
+    </Grid>
+
+    <!-- TOOLS (TOP) -->
+    <Grid Grid.Column="2" Grid.Row="1" Margin="0,0,0,10">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="auto"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto"/>
+      </Grid.RowDefinitions>
+
+      <!-- ORIGIN -->
+      <Grid Grid.Column="0" Grid.Row="0" Margin="0,0,20,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Origin" FontWeight="Bold" Margin="0,0,0,5"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="X" Margin="0,0,10,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Y" Margin="0,0,10,0"/>
+        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" x:Name="numOriginX" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" Margin="0,0,0,5" ValueChanged="NumOriginX_ValueChanged"/>
+        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="2" x:Name="numOriginY" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" Margin="0,0,0,5" ValueChanged="NumOriginX_ValueChanged"/>
+        <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" x:Name="btnShowOrigin" Content="Show" Click="BtnShowOrigin_Click" ToolTip="Show/Hide Origin."/>
+      </Grid>
+
+      <!-- BOUNDING BOX-->
+      <Grid Grid.Column="1" Grid.Row="0" Margin="0,0,20,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Text="Bounding Box" FontWeight="Bold" Margin="0,0,0,5"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Left" Margin="0,0,10,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Top"/>
+        <TextBlock Grid.Column="2" Grid.Row="1" Text="Right" Margin="10,0,10,0"/>
+        <TextBlock Grid.Column="2" Grid.Row="2" Text="Bottom" Margin="10,0,10,0"/>
+        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" x:Name="numBoundingBoxX1" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" Margin="0,0,0,5" ValueChanged="NumBoundingBox_ValueChanged"/>
+        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="2" x:Name="numBoundingBoxY1" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" Margin="0,0,0,5" ValueChanged="NumBoundingBox_ValueChanged"/>
+        <xctk:IntegerUpDown Grid.Column="3" Grid.Row="1" x:Name="numBoundingBoxX2" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" Margin="0,0,0,5" ValueChanged="NumBoundingBox_ValueChanged"/>
+        <xctk:IntegerUpDown Grid.Column="3" Grid.Row="2" x:Name="numBoundingBoxY2" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" Margin="0,0,0,5" ValueChanged="NumBoundingBox_ValueChanged"/>
+        <TextBlock Grid.Column="2" Grid.Row="3" Text="Size" Margin="10,0,10,0"/>
+        <TextBlock Grid.Column="3" Grid.Row="3" x:Name="valBBoxSize" Text="0,0" TextAlignment="Right"/>
+        <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" x:Name="btnShowBoundingBox" Content="Show" Click="BtnShowBoundingBox_Click" ToolTip="Show/Hide Bounding Box."/>
+      </Grid>
+
+      <!-- VIEW -->
+      <Grid Grid.Column="2" Grid.Row="0" Margin="0,0,20,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <!-- Headers -->
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="View Info" FontWeight="Bold" Margin="0,0,0,5"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Mouse X" Margin="0,0,10,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Mouse Y" Margin="0,0,10,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Zoom" Margin="0,0,10,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Angle" Margin="0,0,10,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="Distance" Margin="0,0,10,0"/>
+        <!-- Values -->
+        <TextBlock x:Name="valMouseX" Grid.Column="1" Grid.Row="1" Text="0" Margin="0,0,10,0" TextAlignment="Right"/>
+        <TextBlock x:Name="valMouseY" Grid.Column="1" Grid.Row="2" Text="0" Margin="0,0,10,0" TextAlignment="Right"/>
+        <TextBlock x:Name="valZoom" Grid.Column="1" Grid.Row="3" Text="100%" Margin="0,0,10,0" TextAlignment="Right"/>
+        <TextBlock x:Name="valAngle" Grid.Column="1" Grid.Row="4" Text="" Margin="0,0,10,0" TextAlignment="Right"/>
+        <TextBlock x:Name="valDistance" Grid.Column="1" Grid.Row="5" Text="" Margin="0,0,10,0" TextAlignment="Right"/>
+      </Grid>
+
+      <!-- SPRITE -->
+      <Grid Grid.Column="3" Grid.Row="0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <!-- Headers -->
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Sprite Info" FontWeight="Bold" Margin="0,0,0,5"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Width" Margin="0,0,10,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Height" Margin="0,0,10,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="FrameCount" Margin="0,0,10,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Frame" Margin="0,0,10,0"/>
+        <!-- Values -->
+        <TextBlock x:Name="valWidth" Grid.Column="1" Grid.Row="1" Text="0" Margin="0,0,10,0" TextAlignment="Right"/>
+        <TextBlock x:Name="valHeight" Grid.Column="1" Grid.Row="2" Text="0" Margin="0,0,10,0" TextAlignment="Right"/>
+        <TextBlock x:Name="valFrameCount" Grid.Column="1" Grid.Row="3" Text="0" Margin="0,0,10,0" TextAlignment="Right"/>
+        <TextBlock x:Name="valFrame" Grid.Column="1" Grid.Row="4" Text="0" Margin="0,0,10,0" TextAlignment="Right"/>
+        <!-- Checkbox -->
+        <CheckBox x:Name="chkKeepData" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Content="Keep Data" ToolTip="Keep Origin and BoundingBox Data from&#10;previously loaded sprite if the new sprite&#10;doesn't have any saved data."/>
+      </Grid>
+
+    </Grid>
+    
+    <!-- TOOLS (LEFT) -->
+    <Grid Grid.Column="1" Grid.Row="2" Margin="0,0,20,0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="auto"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      
+      <!-- ANIMATION -->
+      <Grid Grid.Column="0" Grid.Row="0" Margin="0,0,0,10">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Animation" FontWeight="bold" Margin="0,0,0,5"/>
+        <Button Grid.Row="1" Grid.ColumnSpan="2" x:Name="btnPlay" Content="Play" Margin="0,0,0,5" Click="BtnPlay_Click" ToolTip="Play/Stop Animation.&#10;You can also cycle through frames&#10;with the mouse wheel."/>
+        <TextBlock Grid.Row="2" Text="Base speed (fps)" Margin="0,0,10,0"/>
+        <TextBlock Grid.Row="3" Text="Frame speed"/>
+        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="2" x:Name="numAnimationSpeed" DefaultValue="15" DisplayDefaultValueOnEmptyText="True" Margin="0,0,0,5" ValueChanged="NumAnimationSpeed_ValueChanged" ToolTip="Default animation speed"/>
+        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="3" x:Name="numFrameSpeed" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" Margin="0,0,0,5" ValueChanged="NumFrameSpeed_ValueChanged" ToolTip="Set animation speed for&#10;the selected frame."/>
+        <ListBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" x:Name="lstFrameSpeeds" MinHeight="150" SelectionChanged="LstFrameSpeeds_SelectionChanged" ToolTip="Specific animation speed per frame.&#10;If set to 0, the default speed will be used."/>
+      </Grid>
+
+      <!-- ANCHORS -->
+      <Grid Grid.Column="0" Grid.Row="1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Anchors" FontWeight="bold" Margin="0,0,0,5"/>
+        <TextBox Grid.Column="0" Grid.Row="1" x:Name="txtAnchorName" Margin="0,0,10,5" KeyUp="TxtAnchorName_KeyUp" ToolTip="New anchor name."/>
+        <Button Grid.Column="1" Grid.Row="1" x:Name="btnAddAnchor" Content="+" Padding="5,0,5,0" Margin="0,0,10,5" Click="BtnAddAnchor_Click" ToolTip="Add anchor.&#10;You need to set a name first to the left."/>
+        <Button Grid.Column="2" Grid.Row="1" x:Name="btnRemoveAnchor" Content="-" Padding="6,0,6,0" Margin="0,0,0,5" Click="BtnRemoveAnchor_Click" ToolTip="Remove the selected anchor."/>
+        <ListBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" x:Name="lstAnchors" MinHeight="150" SelectionChanged="LstAnchors_SelectionChanged" ToolTip="Sprite anchors.&#10;These are anchors or points on the&#10;sprite that can be positioned per frame.&#10;They can also have an angle and length."/>
+
+      </Grid>
+
+    </Grid>
+
+    <!-- MONOGAME WINDOW -->
+    <local:GameWindow Grid.Column="2" Grid.Row="2" Width="auto" Height="auto" x:Name="spriteWindow" AllowDrop="True" DragEnter="SpriteWindow_DragEnter" Drop="SpriteWindow_Drop" KeyDown="SpriteWindow_KeyDown" KeyUp="SpriteWindow_KeyUp" MouseWheel="SpriteWindow_MouseWheel" PreviewMouseDown="SpriteWindow_MouseDown" MouseMove="SpriteWindow_MouseMove" DpiScalingFactor="1"/>
+
+  </Grid>
+</Window>

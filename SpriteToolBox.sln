@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpriteToolBox", "SpriteToolBox\SpriteToolBox.csproj", "{B430B375-1C7A-42D8-B6F5-D6A7C4094E54}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8FA31E06-EEB7-4DD9-950D-58BDB9E98658} = {8FA31E06-EEB7-4DD9-950D-58BDB9E98658}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpriteContentPipeline", "SpriteContentPipeline\SpriteContentPipeline.csproj", "{8FA31E06-EEB7-4DD9-950D-58BDB9E98658}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B430B375-1C7A-42D8-B6F5-D6A7C4094E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B430B375-1C7A-42D8-B6F5-D6A7C4094E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B430B375-1C7A-42D8-B6F5-D6A7C4094E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B430B375-1C7A-42D8-B6F5-D6A7C4094E54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FA31E06-EEB7-4DD9-950D-58BDB9E98658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FA31E06-EEB7-4DD9-950D-58BDB9E98658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FA31E06-EEB7-4DD9-950D-58BDB9E98658}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FA31E06-EEB7-4DD9-950D-58BDB9E98658}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {97C647D0-F2EC-4D83-9200-9C159289A9BD}
+	EndGlobalSection
+EndGlobal
