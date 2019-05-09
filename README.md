@@ -7,6 +7,7 @@ Sprite ToolBox is a tool for setting the origin, bounding box and animation spee
 * Set origin and bounding box for sprites graphically, even when the sprite is animated.
 * Set speed of animation, specific frames can also have their own animation speed.
 * Support for sprite strips (\_stripXX.png) and animated gifs.
+* Drag and drop sprites to the sprite view.
 * Sprite view can be zoomed and panned.
 * Background color of sprite view can be changed.
 * Set up anchors (points) on the sprite that move with the animation (also angle and length).
