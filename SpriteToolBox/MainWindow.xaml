@@ -182,8 +182,8 @@
         <Button Grid.Row="1" Grid.ColumnSpan="2" x:Name="btnPlay" Content="Play" Margin="0,0,0,5" Click="BtnPlay_Click" ToolTip="Play/Stop Animation.&#10;You can also cycle through frames&#10;with the mouse wheel."/>
         <TextBlock Grid.Row="2" Text="Base speed (fps)" Margin="0,0,10,0"/>
         <TextBlock Grid.Row="3" Text="Frame speed"/>
-        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="2" x:Name="numAnimationSpeed" DefaultValue="15" DisplayDefaultValueOnEmptyText="True" Margin="0,0,0,5" ValueChanged="NumAnimationSpeed_ValueChanged" ToolTip="Default animation speed"/>
-        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="3" x:Name="numFrameSpeed" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" Margin="0,0,0,5" ValueChanged="NumFrameSpeed_ValueChanged" ToolTip="Set animation speed for&#10;the selected frame."/>
+        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="2" x:Name="numAnimationSpeed" DefaultValue="15" DisplayDefaultValueOnEmptyText="True" Margin="0,0,0,5" ValueChanged="NumAnimationSpeed_ValueChanged" ToolTip="Default animation speed" Minimum="1"/>
+        <xctk:IntegerUpDown Grid.Column="1" Grid.Row="3" x:Name="numFrameSpeed" DefaultValue="0" DisplayDefaultValueOnEmptyText="True" Margin="0,0,0,5" ValueChanged="NumFrameSpeed_ValueChanged" ToolTip="Set animation speed for&#10;the selected frame." Minimum="0"/>
         <ListBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" x:Name="lstFrameSpeeds" MinHeight="150" SelectionChanged="LstFrameSpeeds_SelectionChanged" ToolTip="Specific animation speed per frame.&#10;If set to 0, the default speed will be used."/>
       </Grid>
 
