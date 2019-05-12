@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:SpriteToolBox"
         mc:Ignorable="d"
-        Title="Sprite ToolBox v0.1" Height="680" Width="870" MinHeight="680" MinWidth="870" Closing="Window_Closing">
+        Title="Sprite ToolBox v0.2" Height="680" Width="870" MinHeight="680" MinWidth="870" Closing="Window_Closing" UseLayoutRounding="True">
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="10"/>
