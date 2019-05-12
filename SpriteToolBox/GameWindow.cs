@@ -11,7 +11,6 @@ namespace SpriteToolBox
   public class GameWindow : WpfGame
   {
     private WpfGraphicsDeviceService graphicsDeviceManager;
-    private GraphicsDevice graphics;
     private SpriteBatch spriteBatch;
 
     private WpfKeyboard keyboard;
@@ -67,7 +66,12 @@ namespace SpriteToolBox
 
     public GraphicsDevice GetGraphicsDevice()
     {
-      return graphics;
+      return GraphicsDevice;
+    }
+
+    public WpfGraphicsDeviceService GetGraphicsDeviceManager()
+    {
+      return graphicsDeviceManager;
     }
 
     public void SetBackgroundColor(System.Windows.Media.Color color)
@@ -82,7 +86,10 @@ namespace SpriteToolBox
       // be called inside Initialize (before base.Initialize())
       graphicsDeviceManager = new WpfGraphicsDeviceService(this);
 
-      graphics = GraphicsDevice;
+      // must be called after the WpfGraphicsDeviceService instance was created
+      base.Initialize();
+
+      // Create a spritebatch for drawing sprites
       spriteBatch = new SpriteBatch(GraphicsDevice);
 
       //graphicsDeviceManager.PreferMultiSampling = false;
@@ -95,47 +102,54 @@ namespace SpriteToolBox
 
       spriteFrames = new List<Texture2D>();
 
-      Texture2D tex = new Texture2D(graphics, 1, 1);
+      Texture2D tex = new Texture2D(GraphicsDevice, 1, 1);
       tex.SetData(new Color[] { Color.Red });
       texRectangle = new TextureSprite(tex);
 
-      tex = new Texture2D(graphics, 1, 1);
+      tex = new Texture2D(GraphicsDevice, 1, 1);
       tex.SetData(new Color[] { Color.LightBlue });
       texPixel = new TextureSprite(tex);
-
-      // must be called after the WpfGraphicsDeviceService instance was created
-      base.Initialize();
 
       // content loading now possible
     }
 
     protected override void LoadContent()
     {
-      //graphics.SamplerStates[0] = SamplerState.PointClamp;
+      base.LoadContent();
       //gameShip = Content.Load<Model>("Blender2p63");
     }
 
-    protected override void Update(GameTime time)
+    protected override void Update(GameTime gameTime)
     {
       // every update we can now query the keyboard & mouse for our WpfGame
       var mouseState = mouse.GetState();
       var keyboardState = keyboard.GetState();
 
       if (Playing)
-        SpriteEdited.Update((float)time.ElapsedGameTime.TotalSeconds);
+        SpriteEdited.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+
+      base.Update(gameTime);
     }
 
-    protected override void Draw(GameTime time)
+    private void DrawSprite(Texture2D sprite, int x, int y, int scale)
     {
-      graphics.Clear(bgColor);
+      spriteBatch.Draw(sprite, new Rectangle(x, y, sprite.Width * zoomLevel, sprite.Height * zoomLevel), new Rectangle(0,0,sprite.Width,sprite.Height), new Color(255, 255, 255, 255));
+    }
 
-      //spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-      spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
+    protected override void Draw(GameTime gameTime)
+    {
+      base.Draw(gameTime);
+
+      GraphicsDevice.Clear(bgColor);
+
+      spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+      //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+      //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
 
       if (SpriteEdited != null)
       {
         if (spriteFrames.Count > SpriteEdited.FrameIndex)
-          spriteBatch.Draw(spriteFrames[SpriteEdited.FrameIndex], new Rectangle(OffsetX, OffsetY, SpriteEdited.Strip.Size.Width * zoomLevel, SpriteEdited.Strip.Size.Height * zoomLevel), new Color(255, 255, 255, 255));
+          DrawSprite(spriteFrames[SpriteEdited.FrameIndex], OffsetX, OffsetY, zoomLevel);
 
         if (ShowBoundingBox)
           spriteBatch.Draw(texRectangle.Texture, new Rectangle(OffsetX + ScreenValue(SpriteEdited.Strip.BoundingBox.Left), OffsetY + ScreenValue(SpriteEdited.Strip.BoundingBox.Top), ScreenValue(SpriteEdited.Strip.BoundingBox.Right) - ScreenValue(SpriteEdited.Strip.BoundingBox.Left) + zoomLevel, ScreenValue(SpriteEdited.Strip.BoundingBox.Bottom) - ScreenValue(SpriteEdited.Strip.BoundingBox.Top) + zoomLevel), new Color(255, 255, 255, 255) * 0.3f);
@@ -151,28 +165,27 @@ namespace SpriteToolBox
         }
 
         if (texCursor != null)
-          spriteBatch.Draw(texCursor.Texture, new Rectangle(OffsetX + ScreenValue(MousePos.X) - texCursor.XCenter * zoomLevel, OffsetY + ScreenValue(MousePos.Y) - texCursor.YCenter * zoomLevel, texCursor.Texture.Width * zoomLevel, texCursor.Texture.Height * zoomLevel), new Color(255, 255, 255, 255));
+          DrawSprite(texCursor.Texture, OffsetX + ScreenValue(MousePos.X) - texCursor.XCenter * zoomLevel, OffsetY + ScreenValue(MousePos.Y) - texCursor.YCenter * zoomLevel, zoomLevel);
+          //spriteBatch.Draw(texCursor.Texture, new Rectangle(OffsetX + ScreenValue(MousePos.X) - texCursor.XCenter * zoomLevel, OffsetY + ScreenValue(MousePos.Y) - texCursor.YCenter * zoomLevel, texCursor.Texture.Width * zoomLevel, texCursor.Texture.Height * zoomLevel), new Color(255, 255, 255, 255));
       }
 
       spriteBatch.End();
-
-      //base.Draw(time);
     }
 
     public void SetCursor(System.Drawing.Bitmap bitmap)
     {
-      texCursor = new TextureSprite(graphics, bitmap);
+      texCursor = new TextureSprite(GraphicsDevice, bitmap);
     }
 
     public void SetOriginSprite(System.Drawing.Bitmap bitmap)
     {
-      texOrigin = new TextureSprite(graphics, bitmap);
+      texOrigin = new TextureSprite(GraphicsDevice, bitmap);
     }
 
     public void SetAnchorSprites(System.Drawing.Bitmap bitmap1, System.Drawing.Bitmap bitmap2)
     {
-      texAnchor1 = new TextureSprite(graphics, bitmap1);
-      texAnchor2 = new TextureSprite(graphics, bitmap2);
+      texAnchor1 = new TextureSprite(GraphicsDevice, bitmap1);
+      texAnchor2 = new TextureSprite(GraphicsDevice, bitmap2);
     }
 
     public void SetSprite(List<System.Drawing.Bitmap> bitmaps)
@@ -189,7 +202,7 @@ namespace SpriteToolBox
         // Add all frames
         foreach (System.Drawing.Bitmap bitmap in bitmaps)
         {
-          Texture2D tex = TextureSprite.GetTexture(graphics, bitmap);
+          Texture2D tex = TextureSprite.GetTexture(GraphicsDevice, bitmap);
           spriteFrames.Add(tex);
         }
       }
